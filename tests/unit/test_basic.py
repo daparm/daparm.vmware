@@ -1,4 +1,4 @@
-"""Unit tests for daparm.vmware."""
+"""Unit tests for daparm.vmware_ops_meta."""
 
 
 def test_basic() -> None:

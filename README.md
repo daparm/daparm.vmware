@@ -1,9 +1,66 @@
-# Daparm Vmware Collection
+# Daparm Vmware Ops Meta Collection
 
-This repository contains the `daparm.vmware` Ansible Collection.
+This repository contains the `daparm.vmware_ops_meta` Ansible Collection.
 
 The collection is intended as a meta collection to have a single pane of glass over the various available vmware ansible content out there. Furthermore it should be used as customization over the already very advanced cloud.vmware_ops collection, to ensure a higher level of operational security.   
 There will be a not to be neglected tradeoff between speed and ease of usage, because we basically transfer the reviewed and understood content of cloud.vmware_ops in this collection and add argument_specs to enforce only validated input.  
+
+## Included content
+
+<!--start collection content-->
+
+As described, the collection will basicaly be a wrapper around the content of **cloud.vmware_ops**, so we'll mostly call the roles and playbooks from this collection, which already consumes the other existing ansible vmware content:
+
+**vmware.vmware**, **vmware.vmware_rest** and **community.vmware**.  
+
+### Overview of Collection "cloud.vmware_ops" - Version 1.6.0 
+
+All currently existing roles:  
+
+| Name | Description |
+| ----- | ----- |
+| cluster_settings | Configure vCenter cluster settings |
+| content_library | Manage a content library in vCenter |
+| deploy_ovf | Deploy an OVF file as a VM on a vCenter or ESXi host |
+| esxi_maintenance_mode | Manage an ESXi host's maintenance mode status |
+| export_vm_as_ovf | Export a powered off VM on vCenter or an ESXi host as an OVF file |
+| info | Gather info about vCenter guests, storage, license, cluster, or appliances |
+| manage_folder | Manage a folder or folder path in vCenter |
+| provision_vcenter | Deploy a vCenter appliance VM on an ESXi host using the VCSA ISO file |
+| provision_virtual_esxi | Provision a virtual ESXi host VM on a vCenter or existing ESXi host |
+| provision_vm | Provision a VM on vCenter or an ESXi host |
+| snapshot_management | Manage a snapshot in vCenter |
+| system_settings | Configure vCenter or ESXi system settings |
+| vcenter_host_connection | Manage the connection of an ESXi host to a vCenter cluster |
+
+All currently existing playbooks:  
+
+| Folder | Name | Description | Used Roles (FQCN) |
+| ----- | ----- | ----- | ----- |
+| cluster_settings | disable_high_availability.yml | Define cluster settings to disable HA | cloud.vmware_ops.cluster_settings |
+| cluster_settings | enable_high_availability.yml | Define cluster settings to enable HA | cloud.vmware_ops.cluster_settings |
+| cluster_settings | manage_all_settings.yml | Manages cluster settings | cloud.vmware_ops.cluster_settings |
+| esxi_management | add_esxi_host_to_vcenter.yml | Add an ESXi host to a vCenter | cloud.vmware_ops.vcenter_host_connection |
+| esxi_management | reconnect_esxi_host_in_vcenter.yml | Reconnect an ESXi host to a vCenter | cloud.vmware_ops.vcenter_host_connection |
+| esxi_management | remove_esxi_host_in_vcenter.yml | Remove an ESXi host to a vCenter | cloud.vmware_ops.vcenter_host_connection |
+| esxi_management | remove_esxi_host_in_vcenter.yml | Put an ESXi host In Maintenance Mode | cloud.vmware_ops.esxi_maintenance_mode |
+| esxi_management | remove_esxi_host_in_vcenter.yml | Remove an ESXi host In Maintenance Mode | cloud.vmware_ops.esxi_maintenance_mode |
+| provision_vcenter | provision_vcsa_on_esxi.yml | Provision a vCenter appliance on an ESXi host, using a vCenter ISO locally or VMX file on a datastore | cloud.vmware_ops.provision_vcenter |
+| provision_vm | deploy_ovf.yml | Deploy a VM from an OVF file. The OVF can be located on the ansible_host filesystem, at a URL, or located in a content library | cloud.vmware_ops.deploy_ovf |
+| provision_vm | manage_vm.yml | Provision a virtual machine and create associated resources if they don't exist (subnets, vCPU, memory configuration, storage configuration, etc). This includes cloning and building from VM templates | cloud.vmware_ops.provision_vm |
+| snapshot_management | create_snapshot.yml | Create snapshot(s) of the given virtual machine | cloud.vmware_ops.snapshot_management |
+| snapshot_management | remove_all_snapshots.yml | Remove all snapshot(s) of the given virtual machine | cloud.vmware_ops.snapshot_management |
+| snapshot_management | remove_snapshots.yml | Remove snapshot(s) of the given virtual machine | cloud.vmware_ops.snapshot_management |
+| snapshot_management | revert_to_a_snapshots.yml | Revert to a snapshot of the given virtual machine | cloud.vmware_ops.snapshot_management |
+| ./ | export_vm_as_ovf.yml | export a VM from vCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (ansible_host) | cloud.vmware_ops.export_vm_as_ovf |
+| ./ | manage_content_library.yml | manage VMWare content libraries. You can create or delete both local and subscribed content libraries | cloud.vmware_ops.content_library |
+| ./ | system_settings.yml | define system settings for vCenter | cloud.vmware_ops.system_settings |
+
+
+
+
+<!--end collection content-->
+
 
 ## External requirements
 
@@ -14,6 +71,10 @@ There will be a not to be neglected tradeoff between speed and ease of usage, be
 | vmware.vmware_rest | The vmware.vmware_rest collection is part of the Red Hat Ansible Certified Content for VMware offering that brings Ansible automation to VMware. This collection brings forward the possibility to manage vSphere resources and automate operator tasks. | [`Pyvmomi`](https://github.com/vmware/pyvmomi), [`vSphere Automation SDK for Python`](https://github.com/vmware/vsphere-automation-sdk-python) | [`cloud.common`](https://github.com/ansible-collections/cloud.common/) | [GitHub](https://github.com/ansible-collections/vmware.vmware_rest) and [Redhat](https://console.redhat.com/ansible/automation-hub/repo/published/vmware/vmware_rest/) |
 | cloud.vmware_ops | This repository hosts the cloud.vmware_ops validated Ansible Collection. The collection includes a variety of Ansible roles and playbooks to help automate the management of VMware. It focuses on playbooks and roles that allow users to quickly and easily perform VMware operations tasks. The playbooks cover common use cases and leverage the roles inside the collection. The roles can be used to create your own playbooks and cover custom use cases for your environment. | [`Pyvmomi`](https://github.com/vmware/pyvmomi), [`vSphere Automation SDK for Python`](https://github.com/vmware/vsphere-automation-sdk-python) and [`aiohttp`](https://pypi.org/project/aiohttp/) | [`vmware.vmware_rest`](https://github.com/ansible-collections/vmware.vmware_rest)/[`vmware.vmware`](https://github.com/ansible-collections/vmware.vmware/)/[`community.vmware`](https://github.com/ansible-collections/community.vmware/)/[`community.general`](https://github.com/ansible-collections/community.general/)/[`ansible.posix`](https://github.com/ansible-collections/ansible.posix/)/[`cloud.common`](https://github.com/ansible-collections/cloud.common/) | [GitHub](https://github.com/ansible-collections/vmware.vmware) and [Redhat](https://console.redhat.com/ansible/automation-hub/repo/published/vmware/vmware/) |
 
+### vSphere compatibility
+
+This collection supports vSphere 7.x and 8.x.
+
 ### Install python requirements via pip
 
 ```bash
@@ -22,31 +83,37 @@ pip install -r requirements.txt
 
 ### Install ansible collection requirements via ansible-galaxy
 
-#### Online from git
-
-```bash
-ansible-galaxy collection install git+https://github.com/daparm/daparm.vmware.git
-```
+Ensure you can resolve the dependencies and prepare your ansible.cfg
 
 #### Online via RedHat Automation Hub
 
-To consume this Validated Content from Automation Hub, please ensure that you add the following lines to your ansible.cfg file.
+To consume this Validated and Certified (published) Content from Automation Hub, please ensure that you add the following lines to your ansible.cfg file.
 
 ```ini
 [galaxy]
-server_list = validated
+server_list = validated, published, community
 
 [galaxy_server.validated]
 url=https://console.redhat.com/api/automation-hub/content/validated/
 auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
 token=<SuperSecretToken>
+
+[galaxy_server.published]
+url=https://console.redhat.com/api/automation-hub/content/published/
+auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+token=<SuperSecretToken>
+
+[galaxy_server.community]
+url=https://galaxy.ansible.com/
 ```
 
 The token can be obtained from the [Automation Hub Web UI](https://console.redhat.com/ansible/automation-hub/token).
 
 #### Offline via Private Automation Hub
 
-``ìni
+To download the content from a private automation hub, create this ansible.cfg
+
+```ini
 [galaxy]
 server_list = automation_hub_pub,automation_hub_cert,automation_hub_validated,automation_hub_comm
 ignore_certs = yes
@@ -68,48 +135,42 @@ url=https://<PRIVATE_HUB_URL>/api/galaxy/content/validated/
 token=<SuperSecretToken>
 ```
 
-### vSphere compatibility
+The token can be obtained from the [Private Automation Hub Web UI](https://<PRIVATE_HUB_URL>/content/api-token).
 
-This collection supports vSphere 7.x and 8.x.
-
-## Included content
-
-<!--start collection content-->
-
-
-
-<!--end collection content-->
-
-## Using this collection
+#### From git resource
 
 ```bash
-    ansible-galaxy collection install daparm.vmware
+ansible-galaxy collection install git+https://github.com/daparm/daparm.vmware_ops_meta.git
+```
+
+If ansible.cfg points to an Private Automation Hub you can omit the git+prefix
+
+```bash
+    ansible-galaxy collection install daparm.vmware_ops_meta
 ```
 
 You can also include it in a `requirements.yml` file and install it via `ansible-galaxy collection install -r requirements.yml` using the format:
 
 ```yaml
 collections:
-  - name: daparm.vmware
+  - name: daparm.vmware_ops_meta
 ```
 
 To upgrade the collection to the latest available version, run the following command:
 
 ```bash
-ansible-galaxy collection install daparm.vmware --upgrade
+ansible-galaxy collection install daparm.vmware_ops_meta --upgrade
 ```
 
-You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax where `X.Y.Z` can be any [available version](https://galaxy.ansible.com/daparm/vmware):
+You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax where `X.Y.Z` can be any [available version](https://github.com/daparm/daparm.vmware_ops_meta.git):
 
 ```bash
-ansible-galaxy collection install daparm.vmware:==X.Y.Z
+ansible-galaxy collection install daparm.vmware_ops_meta:==X.Y.Z
 ```
-
-See [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
 
 ## Release notes
 
-See the [changelog](https://github.com/ansible-collections/daparm.vmware/tree/main/CHANGELOG.rst).
+See the [changelog](https://github.com/ansible-collections/daparm.vmware_ops_meta/tree/main/CHANGELOG.rst).
 
 ## Roadmap
 

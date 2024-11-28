@@ -1,6 +1,6 @@
 galaxy_info:
   author: foo
-  description: Daparm.Vmware Run Role
+  description: daparm.vmware_ops_meta Run Role
   company: Daparm
 
   # If the issue tracker for your role is not on github, uncomment the

@@ -1,4 +1,4 @@
-Daparm.Vmware Run Role
+daparm.vmware_ops_meta Run Role
 ========================
 
 A brief description of the role goes here.
@@ -27,20 +27,20 @@ Including an example of how to use your role (for instance, with variables passe
 - name: Execute tasks on servers
   hosts: servers
   roles:
-    - role: daparm.vmware.run
+    - role: daparm.vmware_ops_meta.run
       run_x: 42
 ```
 
 Another way to consume this role would be:
 
 ```yaml
-- name: Initialize the run role from daparm.vmware
+- name: Initialize the run role from daparm.vmware_ops_meta
   hosts: servers
   gather_facts: false
   tasks:
     - name: Trigger invocation of run role
       ansible.builtin.include_role:
-        name: daparm.vmware.run
+        name: daparm.vmware_ops_meta.run
       vars:
         run_x: 42
 ```

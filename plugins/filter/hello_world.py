@@ -1,4 +1,4 @@
-"""A hello-world filter plugin in daparm.vmware."""
+"""A hello-world filter plugin in daparm.vmware_ops_meta."""
 
 from __future__ import absolute_import, annotations, division, print_function
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 DOCUMENTATION = """
     name: hello_world
-    author: Daparm Vmware
+    author: Daparm Vmware Ops Meta
     version_added: "1.0.0"
     short_description: Demo filter plugin that returns a Hello message.
     description:
@@ -30,7 +30,7 @@ EXAMPLES = """
 
 - name: Display a hello message
   ansible.builtin.debug:
-    msg: "{{ 'ansible-creator' | daparm.vmware.hello_world }}"
+    msg: "{{ 'ansible-creator' | daparm.vmware_ops_meta.hello_world }}"
 """
 
 

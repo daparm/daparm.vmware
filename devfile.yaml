@@ -1,6 +1,6 @@
 schemaVersion: 2.2.2
 metadata:
-  name: daparm.vmware-c7d3c0b3
+  name: daparm.vmware_ops_meta-c7d3c0b3
 components:
   - name: tooling-container
     container:
