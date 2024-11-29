@@ -15,7 +15,7 @@ As described, the collection will basicaly be a wrapper around the content of **
 
 ### Overview of Collection "cloud.vmware_ops" - Version 1.6.0 
 
-All currently existing roles:  
+All existing roles - 13:  
 
 | Name | Description |
 | ----- | ----- |
@@ -33,7 +33,9 @@ All currently existing roles:
 | system_settings | Configure vCenter or ESXi system settings |
 | vcenter_host_connection | Manage the connection of an ESXi host to a vCenter cluster |
 
-All currently existing playbooks:  
+
+All existing playbooks - 20:  
+
 
 | Folder | Name | Description | Used Roles (FQCN) |
 | ----- | ----- | ----- | ----- |
@@ -53,13 +55,17 @@ All currently existing playbooks:
 | snapshot_management | remove_snapshots.yml | Remove snapshot(s) of the given virtual machine | cloud.vmware_ops.snapshot_management |
 | snapshot_management | revert_to_a_snapshots.yml | Revert to a snapshot of the given virtual machine | cloud.vmware_ops.snapshot_management |
 | ./ | export_vm_as_ovf.yml | export a VM from vCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (ansible_host) | cloud.vmware_ops.export_vm_as_ovf |
+| ./ | info.yml | Gathers information from vCenter | cloud.vmware_ops.info |
 | ./ | manage_content_library.yml | manage VMWare content libraries. You can create or delete both local and subscribed content libraries | cloud.vmware_ops.content_library |
+| ./ | manage_folder.yml | Manage folder or folder tree in vCenter | cloud.vmware_ops.manage_folder |
 | ./ | system_settings.yml | define system settings for vCenter | cloud.vmware_ops.system_settings |
 
 
+Currently we have high interest in the provisioning and the info functionality of the vmware_ops collection.  
+The information gathering can be extended to a more advanced capacity planning needs and for templating the argument_specs.yml to reduce the manual overhead of creating VMWare resources and adding them back to the meta provision role for the sake of quality and security insurance.  
 
-
-<!--end collection content-->
+The provisioning part itself, only get's further restricted via an additional **meta/argument_specs.yml** file to provide a curated list of valid inputs.  
+Visit [docs](./docs/adding_argument_specs.md)
 
 
 ## External requirements
